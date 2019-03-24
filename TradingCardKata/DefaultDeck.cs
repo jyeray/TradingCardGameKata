@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace TradingCardKata {
-    public class Deck {
+    public interface Deck {
+        Card DrawCard();
+    }
+
+    public class DefaultDeck : Deck {
         private readonly Random random;
         public List<Card> Cards { get; }
 
-        public Deck(Random random) {
+        public DefaultDeck(Random random) {
             this.random = random;
             Cards = new List<Card>(Enumerable.Repeat(new Card(0), 2))
                 .Concat(Enumerable.Repeat(new Card(1), 2))
@@ -21,7 +25,7 @@ namespace TradingCardKata {
                 .ToList();
         }
 
-        public virtual Card DrawCard() {
+        public Card DrawCard() {
             var cardIndex = random.Next(Cards.Count);
             var drewCard = Cards[cardIndex];
             Cards.RemoveAt(cardIndex);

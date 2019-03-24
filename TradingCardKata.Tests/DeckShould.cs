@@ -7,13 +7,13 @@ using NUnit.Framework;
 namespace TradingCardKata.Tests {
     public class DeckShould {
         private const int InitialAmountOfCards = 20;
-        private Deck deck;
+        private DefaultDeck deck;
         private Random random;
 
         [SetUp]
         public void SetUp() {
             random = Substitute.For<Random>();
-            deck = new Deck(random);
+            deck = new DefaultDeck(random);
         }
 
         [Test]

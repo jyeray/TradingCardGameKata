@@ -14,8 +14,8 @@ namespace TradingCardKata.Tests {
 
         [SetUp]
         public void SetUp() {
-            playerOneDeck = Substitute.For<Deck>(new object[] {null} );
-            playerTwoDeck = Substitute.For<Deck>(new object[] {null} );
+            playerOneDeck = Substitute.For<Deck>();
+            playerTwoDeck = Substitute.For<Deck>();
             cardGame = new CardGame(playerOneDeck, playerTwoDeck);
         }
 
