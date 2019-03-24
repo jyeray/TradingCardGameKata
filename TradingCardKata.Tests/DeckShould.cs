@@ -57,6 +57,20 @@ namespace TradingCardKata.Tests {
             deck.Cards.Where(x => x.ManaCost == 2).Should().HaveCount(2);
         }
 
+        [Test]
+        public void call_random_with_cards_amount() {
+            const int cardNumber = 5;
+            GivenNextCard(cardNumber);
+
+            deck.DrawCard();
+            deck.DrawCard();
+
+            Received.InOrder(() => {
+                random.Next(InitialAmountOfCards);
+                random.Next(InitialAmountOfCards - 1);
+            });
+        }
+
         private void GivenNextCard(int cardNumber) {
             random.Next(InitialAmountOfCards).Returns(cardNumber);
         }
