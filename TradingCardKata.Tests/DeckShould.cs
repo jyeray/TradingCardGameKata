@@ -6,6 +6,7 @@ using NUnit.Framework;
 
 namespace TradingCardKata.Tests {
     public class DeckShould {
+        private const int InitialAmountOfCards = 20;
         private Deck deck;
         private Random random;
 
@@ -17,7 +18,7 @@ namespace TradingCardKata.Tests {
 
         [Test]
         public void have_20_cards() {
-            deck.Cards.Should().HaveCount(20);
+            deck.Cards.Should().HaveCount(InitialAmountOfCards);
         }
 
         [TestCase(0, 2)]
@@ -46,13 +47,13 @@ namespace TradingCardKata.Tests {
         }
 
         [Test]
-        public void remove_card_from_deck_when_draw_the_card() {
+        public void remove_the_drew_card_from_deck() {
             const int cardNumber = 5;
             random.Next().Returns(cardNumber);
 
             deck.DrawCard();
 
-            deck.Cards.Should().HaveCount(19);
+            deck.Cards.Should().HaveCount(InitialAmountOfCards - 1);
             deck.Cards.Where(x => x.ManaCost == 2).Should().HaveCount(2);
         }
     }
