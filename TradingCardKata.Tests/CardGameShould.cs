@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using FluentAssertions;
 using NSubstitute;
 using NUnit.Framework;
@@ -33,11 +34,11 @@ namespace TradingCardKata.Tests {
 
         [Test]
         public void each_player_receive_his_initial_hand() {
-            var expectedPlayerOneInitialHand = GivenInitialHandFor(playerOneDeck, 
+            var expectedPlayerOneInitialHand = GivenNextCardsFor(playerOneDeck, 
                 new Card(4),
                 new Card(8),
                 new Card(3));
-            var expectedPlayerTwoInitialHand = GivenInitialHandFor(playerTwoDeck, 
+            var expectedPlayerTwoInitialHand = GivenNextCardsFor(playerTwoDeck, 
                 new Card(2),
                 new Card(2),
                 new Card(5));
@@ -55,13 +56,22 @@ namespace TradingCardKata.Tests {
             cardGame.PlayerOne.ManaSlots.Should().Be(manaSlots);
         }
 
-        private List<Card> GivenInitialHandFor(Deck deck, Card firstCard, Card secondCard, Card thirdCard) {
-            deck.DrawCard().Returns(firstCard, secondCard, thirdCard);
-            return new List<Card> {
-                firstCard,
-                secondCard,
-                thirdCard
-            };
+        [Test]
+        public void active_player_draws_a_card() {
+            var expectedHand = GivenNextCardsFor(playerOneDeck,
+                new Card(4),
+                new Card(8),
+                new Card(3),
+                new Card(7));
+
+            cardGame.Start();
+
+            cardGame.PlayerOne.Hand.Should().BeEquivalentTo(expectedHand);
+        }
+
+        private List<Card> GivenNextCardsFor(Deck deck, Card firstCard, params Card[] followingCards) {
+            deck.DrawCard().Returns(firstCard, followingCards);
+            return new List<Card> { firstCard }.Concat(followingCards).ToList();
         }
     }
 }
