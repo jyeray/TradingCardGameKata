@@ -12,11 +12,12 @@ namespace TradingCardKata.Tests {
             deck.Cards.Should().HaveCount(20);
         }
 
-        [Test]
-        public void have_2_card_with_0_mana_cost() {
+        [TestCase(0, 2)]
+        [TestCase(1, 2)]
+        public void have_2_card_with_0_mana_cost(int manaCost, int amountOfCards) {
             var deck = new Deck();
-            var cardsWithManaCost = deck.Cards.Where(x => x.ManaCost == 0);
-            cardsWithManaCost.Should().HaveCount(2);
+            var cardsWithManaCost = deck.Cards.Where(x => x.ManaCost == manaCost);
+            cardsWithManaCost.Should().HaveCount(amountOfCards);
         }
     }
 
@@ -25,7 +26,8 @@ namespace TradingCardKata.Tests {
 
         public Deck() {
             Cards = new List<Card>(Enumerable.Repeat(new Card(0), 2))
-                .Concat(Enumerable.Repeat(new Card(11), 18))
+                .Concat(Enumerable.Repeat(new Card(1), 2))
+                .Concat(Enumerable.Repeat(new Card(11), 16))
                 .ToList();
         }
     }
