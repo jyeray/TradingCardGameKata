@@ -15,7 +15,8 @@ namespace TradingCardKata.Tests {
         [Test]
         public void have_2_card_with_0_mana_cost() {
             var deck = new Deck();
-            deck.Cards.Where(x => x.ManaCost == 0).Should().HaveCount(2);
+            var cardsWithManaCost = deck.Cards.Where(x => x.ManaCost == 0);
+            cardsWithManaCost.Should().HaveCount(2);
         }
     }
 
