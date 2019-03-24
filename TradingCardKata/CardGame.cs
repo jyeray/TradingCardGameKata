@@ -13,12 +13,14 @@
         }
 
         public void Start() {
-            PlayerOne.Hand.Add(playerOneDeck.DrawCard());
-            PlayerOne.Hand.Add(playerOneDeck.DrawCard());
-            PlayerOne.Hand.Add(playerOneDeck.DrawCard());
-            PlayerTwo.Hand.Add(playerTwoDeck.DrawCard());
-            PlayerTwo.Hand.Add(playerTwoDeck.DrawCard());
-            PlayerTwo.Hand.Add(playerTwoDeck.DrawCard());
+            GiveInitialHandTo(PlayerOne, playerOneDeck);
+            GiveInitialHandTo(PlayerTwo, playerTwoDeck);
+        }
+
+        private static void GiveInitialHandTo(Player playerOne, Deck oneDeck) {
+            playerOne.Hand.Add(oneDeck.DrawCard());
+            playerOne.Hand.Add(oneDeck.DrawCard());
+            playerOne.Hand.Add(oneDeck.DrawCard());
         }
     }
 }
