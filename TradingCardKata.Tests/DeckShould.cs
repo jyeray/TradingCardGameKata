@@ -11,15 +11,29 @@ namespace TradingCardKata.Tests {
             var deck = new Deck();
             deck.Cards.Should().HaveCount(20);
         }
-    }
 
-    public class Deck {
-        public List<Card> Cards { get;  }
-
-        public Deck() {
-            Cards = new List<Card>(Enumerable.Repeat(new Card(), 20));
+        [Test]
+        public void have_2_card_with_0_mana_cost() {
+            var deck = new Deck();
+            deck.Cards.Where(x => x.ManaCost == 0).Should().HaveCount(2);
         }
     }
 
-    public class Card { }
+    public class Deck {
+        public List<Card> Cards { get; }
+
+        public Deck() {
+            Cards = new List<Card>(Enumerable.Repeat(new Card(0), 2))
+                .Concat(Enumerable.Repeat(new Card(11), 18))
+                .ToList();
+        }
+    }
+
+    public class Card {
+        public int ManaCost { get; }
+
+        public Card(int manaCost) {
+            ManaCost = manaCost;
+        }
+    }
 }
