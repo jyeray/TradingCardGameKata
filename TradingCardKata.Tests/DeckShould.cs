@@ -38,7 +38,7 @@ namespace TradingCardKata.Tests {
         [Test]
         public void draw_a_random_card() {
             const int cardNumber = 18;
-            random.Next().Returns(cardNumber);
+            random.Next(InitialAmountOfCards).Returns(cardNumber);
             var expectedCard = deck.Cards[cardNumber];
 
             var card = deck.DrawCard();
@@ -49,7 +49,7 @@ namespace TradingCardKata.Tests {
         [Test]
         public void remove_the_drew_card_from_deck() {
             const int cardNumber = 5;
-            random.Next().Returns(cardNumber);
+            random.Next(InitialAmountOfCards).Returns(cardNumber);
 
             deck.DrawCard();
 

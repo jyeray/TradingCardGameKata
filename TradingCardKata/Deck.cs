@@ -22,7 +22,7 @@ namespace TradingCardKata {
         }
 
         public Card DrawCard() {
-            var cardIndex = random.Next();
+            var cardIndex = random.Next(20);
             var drewCard = Cards[cardIndex];
             Cards.RemoveAt(cardIndex);
             return drewCard;
