@@ -48,6 +48,13 @@ namespace TradingCardKata.Tests {
             cardGame.PlayerTwo.Hand.Should().BeEquivalentTo(expectedPlayerTwoInitialHand);
         }
 
+        [Test]
+        public void active_player_receive_one_mana_slot() {
+            const int manaSlots = InitialManaSlots + 1;
+            cardGame.Start();
+            cardGame.PlayerOne.ManaSlots.Should().Be(manaSlots);
+        }
+
         private List<Card> GivenInitialHandFor(Deck deck, Card firstCard, Card secondCard, Card thirdCard) {
             deck.DrawCard().Returns(firstCard, secondCard, thirdCard);
             return new List<Card> {

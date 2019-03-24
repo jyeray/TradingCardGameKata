@@ -15,6 +15,7 @@
         public void Start() {
             GiveInitialHandTo(PlayerOne, playerOneDeck);
             GiveInitialHandTo(PlayerTwo, playerTwoDeck);
+            PlayerOne.ManaSlots++;
         }
 
         private static void GiveInitialHandTo(Player playerOne, Deck oneDeck) {

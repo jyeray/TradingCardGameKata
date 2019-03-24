@@ -3,7 +3,7 @@
 namespace TradingCardKata {
     public class Player {
         public int Health { get; }
-        public int ManaSlots { get; }
+        public int ManaSlots { get; set; }
         public List<Card> Hand { get; }
 
         public Player() {
