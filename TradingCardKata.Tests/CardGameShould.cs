@@ -33,11 +33,7 @@ namespace TradingCardKata.Tests {
         }
 
         [Test]
-        public void each_player_receive_his_initial_hand() {
-            var expectedPlayerOneInitialHand = GivenNextCardsFor(playerOneDeck, 
-                new Card(4),
-                new Card(8),
-                new Card(3));
+        public void player_two_receive_his_initial_hand_when_game_starts() {
             var expectedPlayerTwoInitialHand = GivenNextCardsFor(playerTwoDeck, 
                 new Card(2),
                 new Card(2),
@@ -45,19 +41,11 @@ namespace TradingCardKata.Tests {
 
             cardGame.Start();
 
-            cardGame.PlayerOne.Hand.Should().BeEquivalentTo(expectedPlayerOneInitialHand);
             cardGame.PlayerTwo.Hand.Should().BeEquivalentTo(expectedPlayerTwoInitialHand);
         }
 
         [Test]
-        public void active_player_receive_one_mana_slot() {
-            const int manaSlots = InitialManaSlots + 1;
-            cardGame.Start();
-            cardGame.PlayerOne.ManaSlots.Should().Be(manaSlots);
-        }
-
-        [Test]
-        public void active_player_draws_a_card() {
+        public void player_one_receive_his_initial_hand_plus_other_card_when_game_starts() {
             var expectedHand = GivenNextCardsFor(playerOneDeck,
                 new Card(4),
                 new Card(8),
@@ -69,7 +57,14 @@ namespace TradingCardKata.Tests {
             cardGame.PlayerOne.Hand.Should().BeEquivalentTo(expectedHand);
         }
 
-        private List<Card> GivenNextCardsFor(Deck deck, Card firstCard, params Card[] followingCards) {
+        [Test]
+        public void active_player_receive_one_mana_slot() {
+            const int manaSlots = InitialManaSlots + 1;
+            cardGame.Start();
+            cardGame.PlayerOne.ManaSlots.Should().Be(manaSlots);
+        }
+
+        private static List<Card> GivenNextCardsFor(Deck deck, Card firstCard, params Card[] followingCards) {
             deck.DrawCard().Returns(firstCard, followingCards);
             return new List<Card> { firstCard }.Concat(followingCards).ToList();
         }
