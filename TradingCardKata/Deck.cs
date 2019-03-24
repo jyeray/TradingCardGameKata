@@ -21,7 +21,7 @@ namespace TradingCardKata {
                 .ToList();
         }
 
-        public Card DrawCard() {
+        public virtual Card DrawCard() {
             var cardIndex = random.Next(Cards.Count);
             var drewCard = Cards[cardIndex];
             Cards.RemoveAt(cardIndex);
