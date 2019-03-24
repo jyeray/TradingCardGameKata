@@ -1,4 +1,4 @@
-using FluentAssertions;
+﻿using FluentAssertions;
 using NUnit.Framework;
 
 namespace TradingCardKata.Tests {
@@ -22,26 +22,6 @@ namespace TradingCardKata.Tests {
         public void start_with_players_with_0_mana_slots() {
             cardGame.PlayerOne.ManaSlots.Should().Be(InitialManaSlots);
             cardGame.PlayerTwo.ManaSlots.Should().Be(InitialManaSlots);
-        }
-    }
-
-    public class CardGame {
-        public Player PlayerOne { get; }
-        public Player PlayerTwo { get; }
-
-        public CardGame() {
-            PlayerOne = new Player();
-            PlayerTwo = new Player();
-        }
-    }
-
-    public class Player {
-        public int Health { get; }
-        public int ManaSlots { get; }
-
-        public Player() {
-            Health = 30;
-            ManaSlots = 0;
         }
     }
 }
