@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace TradingCardKata {
     public class Deck {
@@ -23,7 +24,9 @@ namespace TradingCardKata {
 
         public Card DrawCard() {
             var cardIndex = random.Next();
-            return Cards[cardIndex];
+            var drewCard = Cards[cardIndex];
+            Cards.RemoveAt(cardIndex);
+            return drewCard;
         }
     }
 }

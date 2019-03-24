@@ -44,5 +44,16 @@ namespace TradingCardKata.Tests {
 
             expectedCard.Should().Be(card);
         }
+
+        [Test]
+        public void remove_card_from_deck_when_draw_the_card() {
+            const int cardNumber = 5;
+            random.Next().Returns(cardNumber);
+
+            deck.DrawCard();
+
+            deck.Cards.Should().HaveCount(19);
+            deck.Cards.Where(x => x.ManaCost == 2).Should().HaveCount(2);
+        }
     }
 }
