@@ -1,8 +1,11 @@
 using System;
+using System.IO;
 using System.Linq;
 using FluentAssertions;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Constraints;
+using static System.Linq.Enumerable;
 
 namespace TradingCardKata.Tests {
     public class DeckShould {
@@ -48,12 +51,12 @@ namespace TradingCardKata.Tests {
 
         [Test]
         public void remove_the_drew_card_from_deck() {
-            const int cardNumber = 5;
-            GivenNextCard(cardNumber);
+            const int aaa = 5;
+            GivenNextCard(aaa);
 
             deck.DrawCard();
 
-            deck.Cards.Should().HaveCount(InitialAmountOfCards - 1);
+            deck.Cards.Should().HaveCount( expected: InitialAmountOfCards - 1);
             deck.Cards.Where(x => x.ManaCost == 2).Should().HaveCount(2);
         }
 
@@ -71,8 +74,25 @@ namespace TradingCardKata.Tests {
             });
         }
 
+        [Test]
+        public void be_empty_when_draw_all_cards() {
+            deck = new DefaultDeck(new Random());
+
+            20.Times(deck.DrawCard);
+            
+            deck.Cards.Should().HaveCount(0);
+        }
+
         private void GivenNextCard(int cardNumber) {
             random.Next(InitialAmountOfCards).Returns(cardNumber);
+        }
+
+    }
+
+
+    public static class MyClass {
+        public static void Times(this int times, Func<object> action) {
+            foreach (var i in Range(0, times)) action();
         }
     }
 }
